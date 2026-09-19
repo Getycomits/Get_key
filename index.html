@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KEY Generator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, #172554, transparent 45%),
+                #05070d;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Efeito de grade */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 35px 35px;
+            pointer-events: none;
+        }
+
+        .card {
+            width: 360px;
+            padding: 32px;
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            border-radius: 20px;
+            background: rgba(10, 15, 28, 0.88);
+            backdrop-filter: blur(15px);
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.08),
+                inset 0 0 30px rgba(0, 255, 255, 0.02);
+            text-align: center;
+            position: relative;
+        }
+
+        .status {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #00ffff;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .description {
+            color: #7f8da3;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .key-box {
+            min-height: 58px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            background: #070b14;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            font-family: monospace;
+            font-size: 19px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.04);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(0, 174, 255, 0.25);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 174, 255, 0.45);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #46536a;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .generated {
+            animation: aparecer 0.35s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="status">
+            ● SYSTEM ONLINE
+        </div>
+
+        <h1>KEY GENERATOR</h1>
+
+        <p class="description">
+            Gere uma chave de acesso exclusiva
+        </p>
+
+        <div id="key" class="key-box">
+            Aguardando geração...
+        </div>
+
+        <button onclick="gerarKey()">
+            ⚡ GERAR NOVA KEY
+        </button>
+
+        <div class="footer">
+            SECURE KEY SYSTEM • v1.0
+        </div>
+
+    </div>
+
+    <script>
+        const keysGeradas = new Set();
+
+        function gerarKey() {
+
+            let numero;
+
+            do {
+                numero = Math.floor(
+                    10000000 + Math.random() * 90000000
+                );
+            } while (keysGeradas.has(numero));
+
+            keysGeradas.add(numero);
+
+            const key = "KEY_" + numero;
+
+            const elemento = document.getElementById("key");
+
+            elemento.classList.remove("generated");
+
+            void elemento.offsetWidth;
+
+            elemento.textContent = key;
+            elemento.classList.add("generated");
+        }
+    </script>
+
+</body>
+</html>
